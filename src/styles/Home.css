@@ -1,0 +1,204 @@
+.parallax-container {
+  overflow-x: hidden;
+  padding-top: 80px; /* Add padding to account for fixed header */
+}
+
+.hero-section {
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 4rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  will-change: transform;
+}
+
+.hero-content {
+  flex: 1;
+  will-change: transform;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-family: "Mulish", sans-serif;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  color: #333333;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Mulish", sans-serif;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.hero-buttons button {
+  font-family: "Mulish", sans-serif;
+  font-weight: 600;
+}
+
+.primary-button {
+  padding: 1.2rem 2.5rem;
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.primary-button:hover {
+  opacity: 0.9;
+}
+
+.secondary-button {
+  padding: 1.2rem 2.5rem;
+  background: white;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.secondary-button:hover {
+  background: #f8f8f8;
+}
+
+.hero-image {
+  flex: 1;
+  will-change: transform;
+}
+
+.floating-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.parallax-section {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.parallax-section.second {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.parallax-content {
+  text-align: center;
+  will-change: transform;
+}
+
+.parallax-content h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  font-family: "Mulish", sans-serif;
+}
+
+.parallax-content p {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+}
+
+.hero-features {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  background: #ffffff;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+}
+
+.feature-card {
+  text-align: left;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+  font-size: 1.8rem;
+  color: #000000;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-family: "Mulish", sans-serif;
+}
+
+.feature-card p {
+  font-size: 1.2rem;
+  color: #333333;
+  line-height: 1.5;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+}
+
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .parallax-content h2 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-features {
+    grid-template-columns: 1fr;
+  }
+
+  .parallax-content h2 {
+    font-size: 2.2rem;
+  }
+
+  .parallax-content p {
+    font-size: 1.2rem;
+  }
+}

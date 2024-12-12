@@ -1,0 +1,63 @@
+/* Font weights */
+.mulish-thin {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.mulish-light {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.mulish-regular {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mulish-medium {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.mulish-semibold {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.mulish-bold {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.mulish-extrabold {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.mulish-black {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.mulish-extrablack {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 1000;
+  font-style: normal;
+}
