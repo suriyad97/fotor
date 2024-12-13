@@ -3,10 +3,26 @@ import '../styles/Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      
+      // Update active section based on scroll position
+      const sections = ['hero', 'features', 'ai-enhancement', 'background-removal', 'effects'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -44,15 +60,35 @@ const Header: React.FC = () => {
         </div>
         
         <nav className="header-nav">
-          <button onClick={() => scrollToSection('features')}>Features</button>
-          <button onClick={() => scrollToSection('templates')}>Templates</button>
-          <button onClick={() => scrollToSection('pricing')}>Pricing</button>
-          <button onClick={() => scrollToSection('about')}>About</button>
+          <button 
+            className={activeSection === 'features' ? 'active' : ''} 
+            onClick={() => scrollToSection('features')}
+          >
+            Features
+          </button>
+          <button 
+            className={activeSection === 'ai-enhancement' ? 'active' : ''} 
+            onClick={() => scrollToSection('ai-enhancement')}
+          >
+            AI Enhancement
+          </button>
+          <button 
+            className={activeSection === 'background-removal' ? 'active' : ''} 
+            onClick={() => scrollToSection('background-removal')}
+          >
+            Background Removal
+          </button>
+          <button 
+            className={activeSection === 'effects' ? 'active' : ''} 
+            onClick={() => scrollToSection('effects')}
+          >
+            Effects
+          </button>
         </nav>
 
         <div className="header-right">
-          <button className="header-button login">Log In</button>
-          <button className="header-button signup">Sign Up</button>
+          <button className="login-button">Login</button>
+          <button className="signup-button">Sign Up</button>
         </div>
       </div>
     </header>
