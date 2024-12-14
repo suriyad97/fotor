@@ -1,27 +1,42 @@
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Account for fixed header */
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  color: #000000;
-  font-family: "Mulish", sans-serif;
-  overflow-x: hidden;
+:root {
+  --bg-color: #000000;
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  background-color: var(--bg-color);
+  transition: background-color 0.5s ease;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Account for fixed header */
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: transparent;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
 .App {
   text-align: center;
-  background-color: white;
+  background: #000000;
+  position: relative;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -36,14 +51,14 @@ body {
 }
 
 .App-header {
-  background-color: white;
+  background-color: #000000;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #000000;
+  color: #ffffff;
 }
 
 .App-link {
@@ -51,6 +66,97 @@ body {
 }
 
 @keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Locomotive Scroll Styles */
+.has-scroll-smooth {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.has-scroll-smooth [data-scroll-container] {
+  min-height: 100vh;
+}
+
+[data-scroll-direction="horizontal"] {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Scroll Animations */
+[data-scroll] {
+  will-change: transform;
+}
+
+.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Transitions */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .has-scroll-smooth {
+    position: relative;
+  }
+  
+  [data-scroll-container] {
+    transform: none !important;
+  }
+}
+
+/* Loading State */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
   from {
     transform: rotate(0deg);
   }

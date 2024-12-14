@@ -1,216 +1,310 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useLocoScroll } from '../components/ScrollProvider';
+import Navbar from '../components/Navbar';
+import Hero3D from '../components/Hero3D';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import Typewriter from 'typewriter-effect';
 import '../styles/Home.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import PageTransition from '../components/PageTransition';
-import GlowingCursor from '../components/GlowingCursor';
-import CookieConsent from '../components/CookieConsent';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Home: React.FC = () => {
-  const [offset, setOffset] = useState(0);
-  const [activeSection, setActiveSection] = useState('hero');
-  const ticking = useRef(false);
+  const { scroll, isReady } = useLocoScroll();
+  const containerRef = React.createRef<HTMLDivElement>();
+
+  // Intersection Observer hooks for fade-in animations
+  const [featuresRef, featuresInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [galleryRef, galleryInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [benefitsRef, benefitsInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [ctaRef, ctaInView] = useInView({ threshold: 0.2, triggerOnce: true });
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!ticking.current) {
-        requestAnimationFrame(() => {
-          const newOffset = window.pageYOffset * 0.3;
-          setOffset(newOffset);
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
-    };
+    if (scroll && isReady) {
+      scroll.update();
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px',
-      threshold: 0.3,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id || 'hero';
-          setActiveSection(sectionId);
-          entry.target.classList.add('visible');
+      // Initialize GSAP ScrollTrigger
+      ScrollTrigger.scrollerProxy('[data-scroll-container]', {
+        scrollTop(value) {
+          if (arguments.length) {
+            scroll.scrollTo(0, { duration: 0, offset: value as number });
+            return;
+          }
+          return (scroll as any).scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+          return {
+            top: 0,
+            left: 0,
+            width: window.innerWidth,
+            height: window.innerHeight
+          };
         }
       });
-    };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => observer.observe(section));
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      sections.forEach(section => observer.unobserve(section));
-    };
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
+      // Background color transitions
+      const sections = document.querySelectorAll('[data-color]');
+      sections.forEach((section) => {
+        const color = section.getAttribute('data-color');
+        gsap.to(document.documentElement, {
+          scrollTrigger: {
+            trigger: section,
+            scroller: containerRef.current,
+            scrub: true,
+            start: 'top center',
+            end: 'bottom center'
+          },
+          '--bg-color': color,
+          ease: 'none'
+        });
       });
+
+      // Cleanup
+      return () => {
+        ScrollTrigger.getAll().forEach(t => t.kill());
+      };
+    }
+  }, [scroll, isReady]);
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
     }
   };
 
   return (
-    <div>
-      <Header />
-      <GlowingCursor />
-      <CookieConsent />
-      <div className="home-container">
-        <main className="main-content">
-          {/* Hero Section */}
-          <section id="hero" className="hero-section">
-            <div className="hero-content">
-              <h1>Supercharge Your Imagination with AI</h1>
-              <p>Professional photo editing tools powered by artificial intelligence</p>
-              <div className="hero-cta">
-                <button className="primary-button" onClick={() => scrollToSection('features')}>
-                  Get Started
-                </button>
-                <button className="secondary-button" onClick={() => scrollToSection('ai-enhancement')}>
-                  Learn More
-                </button>
-              </div>
-            </div>
-            <div className="hero-image">
-              <img src="/hero-image.png" alt="AI Photo Editing" />
-            </div>
-          </section>
+    <div className="home" ref={containerRef} data-scroll-container>
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section data-scroll-section data-color="#000000" className="hero-section">
+        <Hero3D />
+        <motion.div 
+          className="hero-content"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          data-scroll
+          data-scroll-speed="2"
+        >
+          <div className="animated-hero-text">
+            <motion.div className="hero-title-container">
+              <h1 className="hero-title">
+                <div className="typewriter-container">
+                  <Typewriter
+                    options={{
+                      strings: ['Transforming Memories', 'Creating Magic', 'Enhancing Photos'],
+                      autoStart: true,
+                      loop: true,
+                      wrapperClassName: 'gradient-text',
+                      cursorClassName: 'typewriter-cursor'
+                    }}
+                  />
+                </div>
+                <motion.span 
+                  className="gradient-text"
+                  data-scroll
+                  data-scroll-speed="1"
+                >
+                  into
+                </motion.span>
+                <motion.span 
+                  className="gradient-text"
+                  data-scroll
+                  data-scroll-speed="3"
+                >
+                  Masterpieces
+                </motion.span>
+              </h1>
+            </motion.div>
+            <motion.button 
+              className="discover-button"
+              data-scroll
+              data-scroll-speed="1"
+              onClick={() => scroll?.scrollTo('#features')}
+            >
+              Discover what we do
+              <span className="arrow">→</span>
+            </motion.button>
+          </div>
+        </motion.div>
+      </section>
 
-          {/* Features Overview */}
-          <section id="features" className="features-section">
-            <div className="section-content">
-              <h2>Our Features</h2>
-              <div className="features-grid">
-                <div className="feature-card" onClick={() => scrollToSection('ai-enhancement')}>
-                  <div className="feature-icon">✨</div>
-                  <h3>AI Enhancement</h3>
-                  <p>Enhance your photos automatically with our advanced AI technology</p>
-                </div>
+      {/* Features Section */}
+      <section 
+        id="features"
+        data-scroll-section
+        data-color="#1a1a1a"
+        className="features-section"
+        ref={featuresRef}
+      >
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={featuresInView ? "visible" : "hidden"}
+          className="features-content"
+          data-scroll
+          data-scroll-speed="1"
+        >
+          <motion.h2 variants={fadeInUp}>Transform Your Photos</motion.h2>
+          <div className="features-grid">
+            {['AI Enhancement', 'Background Removal', 'Effects Gallery'].map((feature, index) => (
+              <motion.div 
+                key={feature}
+                className="feature-item"
+                variants={fadeInUp}
+                data-scroll
+                data-scroll-speed={1 + index * 0.2}
+              >
+                <h3>{feature}</h3>
+                <p>Experience the power of AI-driven photo editing</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
 
-                <div className="feature-card" onClick={() => scrollToSection('background-removal')}>
-                  <div className="feature-icon">🎯</div>
-                  <h3>Background Removal</h3>
-                  <p>Remove backgrounds with one click using AI-powered tools</p>
-                </div>
+      {/* Gallery Section */}
+      <section 
+        id="gallery"
+        data-scroll-section
+        data-color="#000000"
+        className="gallery-section"
+        ref={galleryRef}
+      >
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={galleryInView ? "visible" : "hidden"}
+          className="gallery-content"
+          data-scroll
+          data-scroll-speed="1"
+        >
+          <motion.h2 variants={fadeInUp}>Gallery Showcase</motion.h2>
+          <motion.div 
+            className="gallery-grid"
+            variants={fadeInUp}
+            data-scroll
+            data-scroll-speed="2"
+          >
+            {[...Array(6)].map((_, index) => (
+              <motion.div
+                key={index}
+                className="gallery-item"
+                whileHover={{ scale: 1.05 }}
+                data-scroll
+                data-scroll-speed={1 + index * 0.1}
+              >
+                <div className="gallery-image" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </section>
 
-                <div className="feature-card" onClick={() => scrollToSection('effects')}>
-                  <div className="feature-icon">🎨</div>
-                  <h3>Effects</h3>
-                  <p>Apply professional effects and filters to your photos</p>
-                </div>
-              </div>
-            </div>
-          </section>
+      {/* Benefits Section */}
+      <section 
+        id="benefits"
+        data-scroll-section
+        data-color="#1a1a1a"
+        className="benefits-section"
+        ref={benefitsRef}
+      >
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={benefitsInView ? "visible" : "hidden"}
+          className="benefits-content"
+          data-scroll
+          data-scroll-speed="1"
+        >
+          <motion.h2 variants={fadeInUp}>Why Choose Us</motion.h2>
+          <div className="benefits-grid">
+            {[
+              { title: 'Fast Processing', desc: 'Get results in seconds' },
+              { title: 'High Quality', desc: 'Maintain image quality' },
+              { title: 'Easy to Use', desc: 'Intuitive interface' }
+            ].map((benefit, index) => (
+              <motion.div 
+                key={benefit.title}
+                className="benefit-item"
+                variants={fadeInUp}
+                data-scroll
+                data-scroll-speed={1 + index * 0.2}
+              >
+                <h3>{benefit.title}</h3>
+                <p>{benefit.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
 
-          {/* AI Enhancement Section */}
-          <section id="ai-enhancement" className="feature-section">
-            <div className="section-content">
-              <div className="feature-content">
-                <div className="feature-details">
-                  <h2>AI Enhancement</h2>
-                  <p>Transform your photos with cutting-edge AI technology</p>
-                  <ul className="feature-list">
-                    <li>Automatic color correction and enhancement</li>
-                    <li>Smart lighting adjustment</li>
-                    <li>Portrait enhancement and retouching</li>
-                    <li>Noise reduction and sharpening</li>
-                  </ul>
-                  <button className="feature-button">Try AI Enhancement</button>
-                </div>
-                <div className="feature-showcase">
-                  <div className="before-after">
-                    <div className="image-container">
-                      <img src="/before-image.jpg" alt="Before Enhancement" />
-                      <span>Before</span>
-                    </div>
-                    <div className="image-container">
-                      <img src="/after-image.jpg" alt="After Enhancement" />
-                      <span>After</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+      {/* CTA Section */}
+      <section
+        id="cta"
+        data-scroll-section
+        data-color="#000000"
+        className="cta-section"
+        ref={ctaRef}
+      >
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate={ctaInView ? "visible" : "hidden"}
+          className="cta-content"
+          data-scroll
+          data-scroll-speed="2"
+        >
+          <motion.h2 variants={fadeInUp}>Ready to Get Started?</motion.h2>
+          <motion.button 
+            className="cta-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            data-scroll
+            data-scroll-speed="3"
+          >
+            Try Now
+          </motion.button>
+        </motion.div>
+      </section>
 
-          {/* Background Removal Section */}
-          <section id="background-removal" className="feature-section">
-            <div className="section-content">
-              <div className="feature-content reverse">
-                <div className="feature-showcase">
-                  <div className="upload-area">
-                    <div className="upload-icon">🎯</div>
-                    <p>Drop your image here or click to upload</p>
-                    <button className="upload-button">Upload Image</button>
-                  </div>
-                </div>
-                <div className="feature-details">
-                  <h2>Background Removal</h2>
-                  <p>Remove backgrounds instantly with AI precision</p>
-                  <ul className="feature-list">
-                    <li>One-click background removal</li>
-                    <li>Edge detection and refinement</li>
-                    <li>Transparent background support</li>
-                    <li>Batch processing available</li>
-                  </ul>
-                  <button className="feature-button">Remove Background</button>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Effects Section */}
-          <section id="effects" className="feature-section">
-            <div className="section-content">
-              <div className="feature-content">
-                <div className="feature-details">
-                  <h2>Photo Effects</h2>
-                  <p>Add stunning effects to your photos</p>
-                  <ul className="feature-list">
-                    <li>Professional filters and presets</li>
-                    <li>Artistic effects and overlays</li>
-                    <li>Custom effect adjustments</li>
-                    <li>Real-time preview</li>
-                  </ul>
-                  <button className="feature-button">Explore Effects</button>
-                </div>
-                <div className="feature-showcase">
-                  <div className="effects-grid">
-                    <div className="effect-item">
-                      <div className="effect-preview vintage"></div>
-                      <span>Vintage</span>
-                    </div>
-                    <div className="effect-item">
-                      <div className="effect-preview dramatic"></div>
-                      <span>Dramatic</span>
-                    </div>
-                    <div className="effect-item">
-                      <div className="effect-preview noir"></div>
-                      <span>Noir</span>
-                    </div>
-                    <div className="effect-item">
-                      <div className="effect-preview vivid"></div>
-                      <span>Vivid</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-        <Footer />
-      </div>
+      {/* Footer */}
+      <footer className="footer" data-scroll-section>
+        <div className="footer-content">
+          <div className="footer-links">
+            {['About', 'Contact', 'Privacy Policy'].map((link) => (
+              <motion.a 
+                key={link}
+                href="#"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {link}
+              </motion.a>
+            ))}
+          </div>
+          <div className="social-links">
+            {/* Add social media icons/links */}
+          </div>
+          <p className="copyright"> 2024 Fotor. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 };
