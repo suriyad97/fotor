@@ -1,0 +1,144 @@
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: #000;
+  position: relative;
+}
+
+.section-content {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section p {
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.demo-image {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.feature-details ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.feature-details li {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.feature-details li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #4ecdc4;
+}
+
+.effects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.effect-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.effect-card:hover {
+  transform: translateY(-5px);
+}
+
+.effect-preview {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
+}
+
+.effect-card h3 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.effect-card p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.demo-workflow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.workflow-step {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.workflow-step h3 {
+  color: #4ecdc4;
+  margin-bottom: 0.5rem;
+}
+
+.workflow-step p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section h2 {
+    font-size: 2.5rem;
+  }
+
+  .feature-demo {
+    grid-template-columns: 1fr;
+  }
+
+  .effects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-workflow {
+    grid-template-columns: 1fr;
+  }
+}

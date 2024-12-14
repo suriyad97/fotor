@@ -1,8 +1,85 @@
 .page-container {
+  background-color: #000000;
   min-height: 100vh;
-  background: #000000;
-  padding-top: 60px;
-  color: #ffffff;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.page-content {
+  background-color: #000000;
+  min-height: calc(100vh - 60px);
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Common styles for all pages */
+.ai-enhancement-container,
+.artistic-style-container,
+.background-removal-container,
+.batch-processing-container,
+.effects-container {
+  background-color: #000000;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Content sections for all pages */
+.ai-enhancement-content,
+.artistic-style-content,
+.background-removal-content,
+.batch-processing-content,
+.effects-content {
+  background-color: #000000;
+  min-height: calc(100vh - 60px);
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Ensure all sections maintain black background */
+section,
+.section-container,
+.content-section {
+  background-color: #000000;
+  position: relative;
+  width: 100%;
+}
+
+/* Common grid layouts */
+.feature-grid,
+.effects-grid,
+.styles-grid {
+  background-color: #000000;
+  display: grid;
+  gap: 2rem;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Common card styles */
+.feature-card,
+.effect-card,
+.style-card {
+  background-color: #000000;
+  padding: 2rem;
+  border: none;
+  position: relative;
+}
+
+/* Ensure transitions maintain black background */
+.page-transition-enter,
+.page-transition-exit,
+.page-transition-enter-active,
+.page-transition-exit-active {
+  background-color: #000000;
 }
 
 .feature-hero {

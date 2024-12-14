@@ -1,28 +1,22 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import LocomotiveScroll from 'locomotive-scroll';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
-import { initScrollAnimations } from '../utils/scrollAnimations';
 
-interface ScrollContextType {
+interface ScrollContextValue {
   scroll: LocomotiveScroll | null;
-  isReady: boolean;
 }
 
-const ScrollContext = createContext<ScrollContextType>({
-  scroll: null,
-  isReady: false,
-});
+const ScrollContext = createContext<ScrollContextValue>({ scroll: null });
 
 export const useLocoScroll = () => useContext(ScrollContext);
 
-interface ScrollProviderProps {
+interface Props {
   children: React.ReactNode;
 }
 
-export const ScrollProvider: React.FC<ScrollProviderProps> = ({ children }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+export const LocomotiveScrollProvider: React.FC<Props> = ({ children }) => {
   const [scroll, setScroll] = useState<LocomotiveScroll | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -33,18 +27,11 @@ export const ScrollProvider: React.FC<ScrollProviderProps> = ({ children }) => {
       multiplier: 1,
       class: 'is-revealed',
       lerp: 0.1,
-      getDirection: true,
-      getSpeed: true,
-      touchMultiplier: 2,
-      resetNativeScroll: true
+      reloadOnContextChange: true,
+      scrollFromAnywhere: true,
     });
 
     setScroll(locomotiveScroll);
-
-    // Initialize scroll animations
-    initScrollAnimations(locomotiveScroll);
-
-    setIsReady(true);
 
     return () => {
       locomotiveScroll.destroy();
@@ -52,7 +39,7 @@ export const ScrollProvider: React.FC<ScrollProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <ScrollContext.Provider value={{ scroll, isReady }}>
+    <ScrollContext.Provider value={{ scroll }}>
       <div data-scroll-container ref={containerRef}>
         {children}
       </div>
@@ -60,4 +47,4 @@ export const ScrollProvider: React.FC<ScrollProviderProps> = ({ children }) => {
   );
 };
 
-export default ScrollProvider;
+export default LocomotiveScrollProvider;

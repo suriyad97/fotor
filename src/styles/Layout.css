@@ -1,0 +1,32 @@
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  position: relative;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure interactive elements work with cursor glow */
+.app-layout button,
+.app-layout a,
+.app-layout .nav-link,
+.app-layout .feature-card,
+.app-layout .effect-card,
+.app-layout .social-link,
+.app-layout .interactive {
+  position: relative;
+  z-index: 2;
+}
+
+/* Smooth page transitions */
+.app-layout main > * {
+  min-height: 100vh;
+  width: 100%;
+}

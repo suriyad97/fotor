@@ -1,28 +1,31 @@
 import React from 'react';
-import { ScrollProvider } from './components/ScrollProvider';
 import { Routes, Route } from 'react-router-dom';
-import './styles/App.css';
-import './styles/fonts.css';
-import './styles/global.css';
+import { motion } from 'framer-motion';
+import { LocomotiveScrollProvider } from './components/ScrollProvider';
+import Layout from './components/Layout';
 import Home from './Pages/Home';
-import AIEnhancement from './Pages/AIEnhancement';
-import BackgroundRemoval from './Pages/BackgroundRemoval';
-import Effects from './Pages/Effects';
-import CursorGlow from './components/CursorGlow';
+import './styles/App.css';
+import './styles/global.css';
 
 function App() {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   return (
-    <ScrollProvider>
-      <div className="App">
-        <CursorGlow />
+    <LocomotiveScrollProvider>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="App"
+        ref={containerRef}
+      >
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/ai-enhancement" element={<AIEnhancement />} />
-          <Route path="/background-removal" element={<BackgroundRemoval />} />
-          <Route path="/effects" element={<Effects />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+          </Route>
         </Routes>
-      </div>
-    </ScrollProvider>
+      </motion.div>
+    </LocomotiveScrollProvider>
   );
 }
 

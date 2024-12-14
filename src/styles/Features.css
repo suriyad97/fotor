@@ -6,9 +6,13 @@
 }
 
 .features-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  background-color: #000000;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  padding: 2rem;
+  border: none;
+  outline: none;
 }
 
 .features-title {
@@ -28,10 +32,20 @@
 }
 
 .feature-item {
+  background-color: #000000;
+  padding: 2rem;
+  border: none;
+  outline: none;
+  position: relative;
+  transition: transform 0.3s ease;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
 }
 
 .feature-item:nth-child(even) {
@@ -44,23 +58,27 @@
 
 .feature-content {
   opacity: 0;
+  background-color: #000000;
+  padding: 2rem;
+  border: none;
+  outline: none;
+}
+
+.feature-content h3 {
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.feature-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .feature-icon {
   font-size: 3rem;
   margin-bottom: 1.5rem;
-}
-
-.feature-content h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.feature-content p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
 }
 
 .feature-image {
@@ -116,6 +134,15 @@
 
 .try-now-btn:hover {
   transform: scale(1.05);
+}
+
+.features-container *,
+.features-content *,
+.features-grid *,
+.feature-item * {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 @media (max-width: 1024px) {

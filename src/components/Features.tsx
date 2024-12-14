@@ -1,9 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+import React from 'react';
 import '../styles/Features.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface FeatureItem {
   id: number;
@@ -45,76 +41,9 @@ const features: FeatureItem[] = [
 ];
 
 const Features: React.FC = () => {
-  const featuresRef = useRef<HTMLDivElement>(null);
-  const featureRefs = useRef<Array<HTMLDivElement | null>>([]);
-
-  useEffect(() => {
-    if (!featuresRef.current) return;
-
-    const featuresSection = featuresRef.current;
-    
-    // Fade in title
-    gsap.fromTo(
-      '.features-title',
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '.features-title',
-          start: 'top 80%',
-        },
-      }
-    );
-
-    // Animate each feature
-    featureRefs.current.forEach((feature, index) => {
-      if (!feature) return;
-
-      // Content animation
-      gsap.fromTo(
-        feature.querySelector('.feature-content'),
-        { opacity: 0, x: -50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          scrollTrigger: {
-            trigger: feature,
-            start: 'top 70%',
-          },
-        }
-      );
-
-      // Image animation
-      gsap.fromTo(
-        feature.querySelector('.feature-image'),
-        { opacity: 0, x: 50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          scrollTrigger: {
-            trigger: feature,
-            start: 'top 70%',
-          },
-        }
-      );
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
-
-  const setFeatureRef = (el: HTMLDivElement | null, index: number) => {
-    featureRefs.current[index] = el;
-  };
-
   return (
-    <section className="features-section" ref={featuresRef} data-scroll-section>
-      <div className="features-container">
+    <div className="features-container">
+      <div className="features-content">
         <h2 className="features-title">Powerful Features</h2>
         
         <div className="features-list">
@@ -122,7 +51,6 @@ const Features: React.FC = () => {
             <div
               key={feature.id}
               className="feature-item"
-              ref={(el) => setFeatureRef(el, index)}
               data-feature-id={feature.id}
             >
               <div className="feature-content">
@@ -143,7 +71,7 @@ const Features: React.FC = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
