@@ -1,0 +1,13 @@
+.effects-container {
+  background-color: #000000;
+  min-height: 100vh;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.effects-content {
+  background-color: #000000;
+  min-height: calc(100vh - 60px);
+  width: 100%;
+  padding: 2rem;
+}

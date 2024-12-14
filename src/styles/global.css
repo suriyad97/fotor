@@ -1,0 +1,43 @@
+:root {
+  --bg-black: #000000;
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+
+html, 
+body {
+  background-color: #000000;
+  color: var(--text-primary);
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+#root {
+  background-color: #000000;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.page-container {
+  background-color: #000000;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: none;
+}

@@ -1,44 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import FeaturePage from '../components/FeaturePage';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import PageTransition from '../components/PageTransition';
-import '../styles/Pages.css';
 
 const BackgroundRemoval: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  const featureData = {
+    title: "Background Removal",
+    subtitle: "Remove backgrounds instantly with AI precision",
+    description: "Our advanced AI technology makes background removal effortless and precise. Perfect for product photography, portraits, or any image where you need a clean, professional background removal. Export with transparency and maintain edge quality with just one click.",
+    demoImage: "/path-to-background-removal-demo.jpg",
+    features: [
+      "One-click background removal with AI precision",
+      "Smart edge detection and refinement",
+      "Transparent background export options",
+      "Batch processing for multiple images",
+      "Hair and fine detail preservation",
+      "Multiple export formats supported"
+    ],
+    typewriterTexts: [
+      "Perfect Background Removal",
+      "One Click. Zero Background.",
+      "Professional Results Instantly",
+      "AI-Powered Precision"
+    ]
+  };
 
   return (
     <>
       <Header />
-      <PageTransition inProp={isVisible} direction="side">
-        <div className="page-container">
-          <section className="feature-hero">
-            <h1>Background Removal</h1>
-            <p>Remove backgrounds with one click using AI-powered tools</p>
-          </section>
-          
-          <section className="feature-content">
-            <div className="feature-details">
-              <h2>Professional Background Removal</h2>
-              <p>Our AI-powered tools make it easy to remove backgrounds:</p>
-              <ul>
-                <li>One-click background removal</li>
-                <li>Edge refinement tools</li>
-                <li>Transparent background export</li>
-                <li>Batch processing capabilities</li>
-              </ul>
-            </div>
-            
-            <div className="feature-showcase">
-              {/* Add before/after image showcase here */}
-            </div>
-          </section>
-        </div>
-      </PageTransition>
+      <FeaturePage {...featureData} />
       <Footer />
     </>
   );

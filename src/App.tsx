@@ -3,6 +3,7 @@ import { ScrollProvider } from './components/ScrollProvider';
 import { Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 import './styles/fonts.css';
+import './styles/global.css';
 import Home from './Pages/Home';
 import AIEnhancement from './Pages/AIEnhancement';
 import BackgroundRemoval from './Pages/BackgroundRemoval';

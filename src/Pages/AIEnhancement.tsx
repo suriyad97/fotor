@@ -1,44 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import FeaturePage from '../components/FeaturePage';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import PageTransition from '../components/PageTransition';
-import '../styles/Pages.css';
 
 const AIEnhancement: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  const featureData = {
+    title: "AI Enhancement",
+    subtitle: "Transform your photos with cutting-edge AI technology",
+    description: "Our advanced AI algorithms analyze and enhance your photos automatically, improving every aspect of your image with just one click. Experience professional-grade photo enhancement powered by state-of-the-art artificial intelligence.",
+    demoImage: "/path-to-ai-enhancement-demo.jpg",
+    features: [
+      "Intelligent color balance and vibrancy adjustment",
+      "Smart lighting and exposure correction",
+      "Advanced sharpness and detail enhancement",
+      "Automatic noise reduction and clarity improvement",
+      "Face enhancement and skin tone optimization",
+      "Smart composition adjustment"
+    ],
+    typewriterTexts: [
+      "Transform Photos Instantly",
+      "Professional Results with AI",
+      "One-Click Enhancement",
+      "Perfect Photos Every Time"
+    ]
+  };
 
   return (
     <>
       <Header />
-      <PageTransition inProp={isVisible} direction="down">
-        <div className="page-container">
-          <section className="feature-hero">
-            <h1>AI Enhancement</h1>
-            <p>Enhance your photos with cutting-edge AI technology</p>
-          </section>
-          
-          <section className="feature-content">
-            <div className="feature-details">
-              <h2>Transform Your Photos with AI</h2>
-              <p>Our advanced AI algorithms enhance your photos automatically, improving:</p>
-              <ul>
-                <li>Color balance and vibrancy</li>
-                <li>Lighting and exposure</li>
-                <li>Sharpness and detail</li>
-                <li>Noise reduction</li>
-              </ul>
-            </div>
-            
-            <div className="feature-showcase">
-              {/* Add image showcase or interactive demo here */}
-            </div>
-          </section>
-        </div>
-      </PageTransition>
+      <FeaturePage {...featureData} />
       <Footer />
     </>
   );

@@ -1,16 +1,35 @@
-body, html {
+/* Global styles */
+:root {
+  --bg-black: #000000;
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+}
+
+* {
   margin: 0;
   padding: 0;
-  background: #000000;
-  color: #ffffff;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg-black);
+  color: var(--text-primary);
   min-height: 100vh;
   width: 100%;
-  overflow-x: hidden;
+}
+
+#root {
+  background-color: var(--bg-black);
+  min-height: 100vh;
+  width: 100%;
 }
 
 .home-container {
-  background-color: black;
-  color: white;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
@@ -93,7 +112,7 @@ body, html {
 .features-section {
   min-height: 100vh;
   padding: 100px 20px;
-  background: black;
+  background-color: var(--bg-secondary);
   position: relative;
 }
 
@@ -126,7 +145,7 @@ body, html {
 .gallery-section {
   min-height: 100vh;
   padding: 100px 20px;
-  background: black;
+  background-color: var(--bg-primary);
 }
 
 .gallery-content {
@@ -145,7 +164,7 @@ body, html {
 .benefits-section {
   min-height: 100vh;
   padding: 100px 20px;
-  background: black;
+  background-color: var(--bg-secondary);
 }
 
 .benefits-content {
@@ -177,7 +196,7 @@ body, html {
 .cta-section {
   min-height: 50vh;
   padding: 100px 20px;
-  background: black;
+  background-color: var(--bg-primary);
   text-align: center;
 }
 
@@ -187,7 +206,7 @@ body, html {
 }
 
 .cta-button {
-  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  background: var(--accent-gradient);
   border: none;
   padding: 1rem 3rem;
   border-radius: 30px;
@@ -206,7 +225,7 @@ body, html {
 /* Footer */
 .footer {
   padding: 50px 20px;
-  background: black;
+  background-color: var(--bg-primary);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 

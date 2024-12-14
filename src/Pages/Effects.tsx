@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PageTransition from '../components/PageTransition';
 import '../styles/Pages.css';
+import '../styles/Effects.css';
 
 const Effects: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,7 +13,7 @@ const Effects: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className="effects-container">
       <Header />
       <PageTransition inProp={isVisible} direction="down">
         <div className="page-container">
@@ -40,7 +41,7 @@ const Effects: React.FC = () => {
         </div>
       </PageTransition>
       <Footer />
-    </>
+    </div>
   );
 };
 

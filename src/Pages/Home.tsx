@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useLocoScroll } from '../components/ScrollProvider';
 import Navbar from '../components/Navbar';
 import Hero3D from '../components/Hero3D';
+import Features from '../components/Features';
+import Testimonials from '../components/Testimonials';
+import TeaserSection from '../components/TeaserSection'; 
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Typewriter from 'typewriter-effect';
@@ -94,56 +97,13 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section data-scroll-section data-color="#000000" className="hero-section">
         <Hero3D />
-        <motion.div 
-          className="hero-content"
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          data-scroll
-          data-scroll-speed="2"
-        >
-          <div className="animated-hero-text">
-            <motion.div className="hero-title-container">
-              <h1 className="hero-title">
-                <div className="typewriter-container">
-                  <Typewriter
-                    options={{
-                      strings: ['Transforming Memories', 'Creating Magic', 'Enhancing Photos'],
-                      autoStart: true,
-                      loop: true,
-                      wrapperClassName: 'gradient-text',
-                      cursorClassName: 'typewriter-cursor'
-                    }}
-                  />
-                </div>
-                <motion.span 
-                  className="gradient-text"
-                  data-scroll
-                  data-scroll-speed="1"
-                >
-                  into
-                </motion.span>
-                <motion.span 
-                  className="gradient-text"
-                  data-scroll
-                  data-scroll-speed="3"
-                >
-                  Masterpieces
-                </motion.span>
-              </h1>
-            </motion.div>
-            <motion.button 
-              className="discover-button"
-              data-scroll
-              data-scroll-speed="1"
-              onClick={() => scroll?.scrollTo('#features')}
-            >
-              Discover what we do
-              <span className="arrow">→</span>
-            </motion.button>
-          </div>
-        </motion.div>
       </section>
+
+      <Features />
+      
+      <Testimonials />
+
+      <TeaserSection />
 
       {/* Features Section */}
       <section 
