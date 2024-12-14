@@ -15,7 +15,6 @@ const Footer: React.FC = () => {
   ];
 
   const footerLinks = [
-    { title: 'Company', links: ['About Us', 'Careers', 'Contact'] },
     { title: 'Resources', links: ['Blog', 'Documentation', 'Support'] },
     { title: 'Legal', links: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'] },
   ];

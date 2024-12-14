@@ -17,7 +17,7 @@
 .section h2 {
   font-size: 3rem;
   margin-bottom: 1.5rem;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(45deg, #ffffff, #c9c9c9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

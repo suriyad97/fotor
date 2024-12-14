@@ -5,54 +5,78 @@ import Link from 'next/link';
 import '../styles/Header.css';
 
 const Header: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setLastScrollY(window.scrollY);
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > lastScrollY) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+
+        setLastScrollY(currentScrollY);
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavbar);
+
+      return () => {
+        window.removeEventListener('scroll', controlNavbar);
+      };
+    }
   }, [lastScrollY]);
 
   const navItems = [
     { id: 'background-removal', label: 'Background Removal' },
     { id: 'ai-enhancement', label: 'AI Enhancement' },
     { id: 'effects', label: 'Effects' },
+    { id: 'batch-processing', label: 'Batch Processing' },
   ];
 
   const handleScroll = (targetId: string) => {
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
-    <header className={`header ${lastScrollY > 50 ? 'header-scrolled' : ''}`}>
-      <nav className="nav-container">
+    <header className={`header ${isVisible ? 'visible' : 'hidden'} ${lastScrollY > 50 ? 'header-scrolled' : ''}`}>
+      <div className="header-content">
         <Link href="/" className="logo">
           Fotor AI
         </Link>
         
-        <div className="nav-links">
+        <nav className="nav-links">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleScroll(item.id)}
-              className="nav-link interactive"
+              className="nav-link"
             >
               {item.label}
             </button>
           ))}
-        </div>
+        </nav>
 
         <div className="auth-buttons">
-          <button className="login-btn interactive">Login</button>
-          <button className="signup-btn interactive">Sign Up</button>
+          <button className="login-btn">Login</button>
+          <button className="signup-btn">Sign Up</button>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };
